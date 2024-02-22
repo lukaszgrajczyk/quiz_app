@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/questions.dart';
+import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/start_screen.dart';
 
 class QuizScreenManage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _QuizScreenManageState extends State<QuizScreenManage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -42,3 +42,59 @@ class _QuizScreenManageState extends State<QuizScreenManage> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+  // ..........................1......................
+  // Widget? activeScreen;
+
+  // @override
+  // void initState() {
+  //   activeScreen = StartScreen(changeScreen);
+  //   super.initState();
+  // }
+
+  // void changeScreen() {
+  //   setState(() {
+  //     activeScreen = const QuestionsScreen();
+  //   });
+  // }
+  //.
+  //.
+  //.
+  // child: activeScreen
+//..........................................................
+
+//............................2.............................
+
+
+//.
+//.
+// child: activeScreen == 'first screen'
+//           ? StartScreen(changeScreen)
+//           : const QuestionsScreen(),
+
+//...........................................................
+
+  // var activeScreen = 'first screen';
+
+  // void changeScreen() {
+  //   setState(() {
+  //     activeScreen = 'second screen';
+  //   });
+  // }
+
+
