@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
+import 'package:quiz_app/data/questions_data.dart';
 // import 'package:quiz_app/answer_button.dart';
 
 class QuestionsScreen extends StatelessWidget {
@@ -7,22 +8,38 @@ class QuestionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    final currentQuestion = questions[0]; //pierwszy zestaw pytan
+
+    return SizedBox(
+      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'Pytanie nr 1',
-            style: TextStyle(fontSize: 35, color: Colors.white),
+          Text(
+            currentQuestion.text, //pytanie -nagłowek
+            style: const TextStyle(fontSize: 35, color: Colors.white),
           ),
           const SizedBox(height: 20),
-          AnswerButton(onTap: () {}, btnTxt: 'Answer 1'),
+          AnswerButton(
+            onTap: () {},
+            btnTxt: currentQuestion.answers[0], //odpowiedz 1
+          ),
           const SizedBox(height: 20),
-          AnswerButton(onTap: () {}, btnTxt: 'Answer 2'),
+          AnswerButton(
+            onTap: () {},
+            btnTxt: currentQuestion.answers[1],
+          ),
           const SizedBox(height: 20),
-          AnswerButton(onTap: () {}, btnTxt: 'Answer 3'),
+          AnswerButton(
+            onTap: () {},
+            btnTxt: currentQuestion.answers[2],
+          ),
           const SizedBox(height: 20),
-          AnswerButton(onTap: () {}, btnTxt: 'Answer 4'),
+          AnswerButton(
+            onTap: () {},
+            btnTxt: currentQuestion.answers[3],
+          ),
+          //for ()...[]
         ],
       ),
     );
