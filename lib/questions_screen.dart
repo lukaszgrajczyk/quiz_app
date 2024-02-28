@@ -20,26 +20,8 @@ class QuestionsScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 35, color: Colors.white),
           ),
           const SizedBox(height: 20),
-          AnswerButton(
-            onTap: () {},
-            btnTxt: currentQuestion.answers[0], //odpowiedz 1
-          ),
-          const SizedBox(height: 20),
-          AnswerButton(
-            onTap: () {},
-            btnTxt: currentQuestion.answers[1],
-          ),
-          const SizedBox(height: 20),
-          AnswerButton(
-            onTap: () {},
-            btnTxt: currentQuestion.answers[2],
-          ),
-          const SizedBox(height: 20),
-          AnswerButton(
-            onTap: () {},
-            btnTxt: currentQuestion.answers[3],
-          ),
-          //for ()...[]
+          ...currentQuestion.answers.map(
+              (itemAnswer) => AnswerButton(btnTxt: itemAnswer, onTap: () {})),
         ],
       ),
     );

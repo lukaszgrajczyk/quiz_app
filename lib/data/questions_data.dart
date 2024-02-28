@@ -1,11 +1,10 @@
 import 'package:quiz_app/models/questions_model.dart';
 
 List<QuestionsModel> questions = [
-  //list currentQuestions = question [0] -zestaw pierwszy pytan
   QuestionsModel(
-    'What are the main building blocks of Flutter UIs?', //question.text
+    'What are the main building blocks of Flutter UIs?',
     [
-      'Widgets', //anwerButton [0] //questions.answers[0]
+      'Widgets',
       'Components',
       'Blocks',
       'Functions',
