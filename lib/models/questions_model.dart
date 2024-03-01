@@ -3,4 +3,10 @@ class QuestionsModel {
 
   final String text;
   final List<String> answers;
+
+  List<String> getShuffle() {
+    final shuffledList = List<String>.of(answers);
+    shuffledList.shuffle();
+    return shuffledList;
+  }
 }

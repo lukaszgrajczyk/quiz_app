@@ -29,13 +29,17 @@ class _QuizScreenManageState extends State<QuizScreenManage> {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
+          // stops: [],
           colors: [
-            Color.fromARGB(198, 0, 0, 0),
-            Color.fromARGB(250, 30, 0, 255),
+            Color.fromARGB(197, 255, 255, 255),
+            Color.fromARGB(226, 255, 102, 0),
+            Color.fromARGB(255, 240, 240, 239),
+            Color.fromARGB(197, 196, 65, 65),
+            Color.fromARGB(226, 255, 102, 0),
             Color.fromARGB(255, 115, 187, 6),
           ],
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
         ),
       ),
       child: activeScreen,
