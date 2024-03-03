@@ -3,12 +3,25 @@ import 'package:quiz_app/answer_button.dart';
 
 import 'package:quiz_app/data/questions_data.dart';
 
-class QuestionsScreen extends StatelessWidget {
+class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
 
   @override
+  State<QuestionsScreen> createState() => _QuestionsScreenState();
+}
+
+var currentIndex = 0;
+
+class _QuestionsScreenState extends State<QuestionsScreen> {
+  @override
   Widget build(BuildContext context) {
-    final currentQuestion = questions[0]; //pierwszy zestaw pytan
+    final currentQuestion = questions[currentIndex]; //pierwszy zestaw pytan
+
+    void nextQuestion() {
+      setState(() {
+        currentIndex++;
+      });
+    }
 
     return SizedBox(
       height: double.infinity,
@@ -20,7 +33,7 @@ class QuestionsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              currentQuestion.text, //pytanie -nagłowek
+              currentQuestion.text,
               style: const TextStyle(fontSize: 25, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -30,7 +43,7 @@ class QuestionsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: AnswerButton(
                   btnTxt: itemAnswer,
-                  onTap: () {},
+                  onTap: nextQuestion,
                 ),
               );
             }),
