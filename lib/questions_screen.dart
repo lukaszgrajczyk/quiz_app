@@ -4,7 +4,9 @@ import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions_data.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({super.key, required this.onSelectedAnswer});
+
+  final void Function(String answer) onSelectedAnswer;
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -17,11 +19,16 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     final currentQuestion = questions[currentIndex]; //pierwszy zestaw pytan
 
-    void nextQuestion() {
+//? onSelectedAnswer:chooseAnswer -- czyli ADD answer to the list after onTap
+//widget. zaimplementowany do state z StatefulWidget
+
+    void nextQuestion(String answer) {
+      widget.onSelectedAnswer(answer);
       setState(() {
         currentIndex++;
       });
     }
+    //chooseAnswer czyli add to the list
 
     return SizedBox(
       height: double.infinity,
@@ -38,13 +45,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 45),
-            ...currentQuestion.getShuffle().map((itemAnswer) {
+            ...currentQuestion.getShuffle().map((answer) {
+              //rozdzielone stringi z odpowierdziami i zamienione na osobne przyciski
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: AnswerButton(
-                  btnTxt: itemAnswer,
-                  onTap: nextQuestion,
-                ),
+                    //jeden answer button z jedna odpowiedzią
+                    btnTxt: answer,
+                    onTap: () {
+                      nextQuestion(
+                          answer); //jest to funkcja dla kazdego z przycisku- zwieksza index pytania i dodaje pytania do listy
+                    }),
               );
             }),
           ],

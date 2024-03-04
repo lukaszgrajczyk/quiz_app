@@ -10,6 +10,16 @@ class QuizScreenManage extends StatefulWidget {
 }
 
 class _QuizScreenManageState extends State<QuizScreenManage> {
+  //! empty list of answers (adding selectedAnswer)
+  final List<String> selectedAnswer = [];
+
+  //! Function add answer to the list
+  void chooseAnswer(String answer) {
+    setState(() {
+      selectedAnswer.add(answer);
+    });
+  }
+
   Widget? activeScreen;
 
   @override
@@ -18,9 +28,12 @@ class _QuizScreenManageState extends State<QuizScreenManage> {
     super.initState();
   }
 
+  //! chooseAnswer pass to the QuestionScreen with onTapFunction
   void changeScreen() {
     setState(() {
-      activeScreen = const QuestionsScreen();
+      activeScreen = QuestionsScreen(
+          onSelectedAnswer:
+              chooseAnswer); //funkcja przejscia do ekranu i dodania do niego wybranej odpowiedzi
     });
   }
 
