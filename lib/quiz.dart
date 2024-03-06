@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions_data.dart';
 import 'package:quiz_app/questions_screen.dart';
+import 'package:quiz_app/result_screen.dart';
 import 'package:quiz_app/start_screen.dart';
 
 class QuizScreenManage extends StatefulWidget {
@@ -10,14 +12,17 @@ class QuizScreenManage extends StatefulWidget {
 }
 
 class _QuizScreenManageState extends State<QuizScreenManage> {
-  //! empty list of answers (adding selectedAnswer)
-  final List<String> selectedAnswer = [];
+  List<String> selectedAnswer = [];
 
-  //! Function add answer to the list
   void chooseAnswer(String answer) {
-    setState(() {
-      selectedAnswer.add(answer);
-    });
+    selectedAnswer.add(answer);
+
+    if (selectedAnswer.length == questions.length) {
+      setState(() {
+        selectedAnswer = [];
+        activeScreen = const ResultScreen();
+      });
+    }
   }
 
   Widget? activeScreen;
@@ -29,11 +34,10 @@ class _QuizScreenManageState extends State<QuizScreenManage> {
   }
 
   //! chooseAnswer pass to the QuestionScreen with onTapFunction
+
   void changeScreen() {
     setState(() {
-      activeScreen = QuestionsScreen(
-          onSelectedAnswer:
-              chooseAnswer); //funkcja przejscia do ekranu i dodania do niego wybranej odpowiedzi
+      activeScreen = QuestionsScreen(onSelectedAnswer: chooseAnswer);
     });
   }
 
