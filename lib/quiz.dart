@@ -1,118 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions_data.dart';
-import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/result_screen.dart';
-import 'package:quiz_app/start_screen.dart';
+// import 'package:quiz_app/result_screen.dart';
 
-class QuizScreenManage extends StatefulWidget {
-  const QuizScreenManage({super.key});
+import 'package:quiz_app/start_screen.dart';
+import 'package:quiz_app/questions_screen.dart';
+
+class Quiz extends StatefulWidget {
+  const Quiz({super.key});
 
   @override
-  State<QuizScreenManage> createState() => _QuizScreenManageState();
+  State<Quiz> createState() {
+    return _QuizState();
+  }
 }
 
-class _QuizScreenManageState extends State<QuizScreenManage> {
-  List<String> selectedAnswer = [];
+class _QuizState extends State<Quiz> {
+  List<String> selectedAnswers = []; // pusta lista
+
+  var activeScreen = 'start-screen';
+
+  void switchScreen() {
+    setState(() {
+      activeScreen = 'questions-screen';
+    });
+  }
 
   void chooseAnswer(String answer) {
-    selectedAnswer.add(answer);
+    selectedAnswers.add(answer); //dodaj zaznaczoną odpowiedz do listy
 
-    if (selectedAnswer.length == questions.length) {
+    if (selectedAnswers.length == questions.length) {
+      //ilosc zaznaczonych odpowiedzi == ilosci pytan
+      //selectedAnswers = [] - ustawione na nowa czysta liste gdy wyczerpalismy juz wszystkie odpowiedzi
       setState(() {
-        selectedAnswer = [];
-        activeScreen = const ResultScreen();
+        selectedAnswers = [];
+        activeScreen = 'result-screen';
       });
     }
   }
 
-  Widget? activeScreen;
-
-  @override
-  void initState() {
-    activeScreen = StartScreen(changeScreen);
-    super.initState();
-  }
-
-  //! chooseAnswer pass to the QuestionScreen with onTapFunction
-
-  void changeScreen() {
-    setState(() {
-      activeScreen = QuestionsScreen(onSelectedAnswer: chooseAnswer);
-    });
-  }
-
   @override
   Widget build(context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          // stops: [],
-          colors: [
-            Color.fromARGB(238, 255, 128, 0),
-            Color.fromARGB(224, 68, 12, 237),
-            Color.fromARGB(168, 237, 32, 5),
-          ],
-          begin: Alignment.bottomRight,
-          end: Alignment.topLeft,
+    Widget screenWidget = StartScreen(switchScreen);
+
+    if (activeScreen == 'questions-screen') {
+      screenWidget = QuestionsScreen(
+        onSelectedAnswer: chooseAnswer,
+      );
+    }
+//
+    if (activeScreen == 'result-screen') {
+      screenWidget = ResultScreen(
+        chosenAnswer:
+            selectedAnswers, //wybrane odpowiedzi przekazane do ResultScreen
+      );
+    }
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 164, 160, 168),
+                Color.fromARGB(255, 39, 30, 121),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: screenWidget,
         ),
       ),
-      child: activeScreen,
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
-  // ..........................1......................
-  // Widget? activeScreen;
-
-  // @override
-  // void initState() {
-  //   activeScreen = StartScreen(changeScreen);
-  //   super.initState();
-  // }
-
-  // void changeScreen() {
-  //   setState(() {
-  //     activeScreen = const QuestionsScreen();
-  //   });
-  // }
-  //.
-  //.
-  //.
-  // child: activeScreen
-//..........................................................
-
-//............................2.............................
-
-
-//.
-//.
-// child: activeScreen == 'first screen'
-//           ? StartScreen(changeScreen)
-//           : const QuestionsScreen(),
-
-//...........................................................
-
-  // var activeScreen = 'first screen';
-
-  // void changeScreen() {
-  //   setState(() {
-  //     activeScreen = 'second screen';
-  //   });
-  // }
-
-

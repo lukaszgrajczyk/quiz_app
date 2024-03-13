@@ -13,7 +13,7 @@ class QuizApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: QuizScreenManage(),
+        body: Quiz(),
       ),
     );
   }

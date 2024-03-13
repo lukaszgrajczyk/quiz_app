@@ -6,7 +6,7 @@ import 'package:quiz_app/data/questions_data.dart';
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key, required this.onSelectedAnswer});
 
-  final void Function(String answer) onSelectedAnswer;
+  final void Function(String answer) onSelectedAnswer; //przekazanie z quiz
 
   @override
   State<QuestionsScreen> createState() => _QuestionsScreenState();
@@ -19,6 +19,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     final currentQuestion = questions[currentIndex];
 
+//! PRZEJSCIE DO KOLEJNEGO PYTANIA
     void nextQuestion(String answer) {
       widget.onSelectedAnswer(answer);
       setState(() {
