@@ -33,7 +33,8 @@ class StartScreen extends StatelessWidget {
               style: TextStyle(
                   color: Color.fromARGB(255, 255, 254, 254), fontSize: 15),
             ),
-            onPressed: changeScreen,
+            onPressed:
+                changeScreen, //po wcisnieciu za pomoca funkcji changeScreen przechodzi do quiz.dart a potem do innych
           ),
         ],
       ),

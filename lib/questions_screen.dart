@@ -17,11 +17,12 @@ var currentIndex = 0;
 class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentQuestion = questions[currentIndex];
+    final currentQuestion = questions[currentIndex]; //zestaw pytan 1,2,3
 
 //! PRZEJSCIE DO KOLEJNEGO PYTANIA
     void nextQuestion(String answer) {
-      widget.onSelectedAnswer(answer);
+      widget.onSelectedAnswer(
+          answer); //on selectedAnswer jest połaczony z widgetem QuestionScreen
       setState(() {
         currentIndex++;
       });

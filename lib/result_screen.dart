@@ -10,19 +10,12 @@ class ResultScreen extends StatelessWidget {
 
   final List<String> chosenAnswer;
 
-//ABY DOSTAC SIE DO DANYCH MUSIMY POŁACZYC WYBRANE ODPOWIEDZI Z PYTANIAMI
-
 //CHOSENANSWER -> QUESTIONS [0-6]
-// ZACZYNAMY OD wartosci 0;  ZWIEKSZAMY INDEX dopóki WYBRANE ODPOWIEDZI nie są mniejsze jak ilość obiektów w liscie czyli 0d 0-6
-//0-6
-  List<Map<String, Object>> getSummaryData() {
-    // LISTA (key  STRING i value -OBJECT) - typy ktore beda w liscie
-    // Pusta Lista do ktorych beda dodawane dane
 
+  List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswer.length; i++) {
-      // summary.add({}) -między {..} umieszczamy wybrane typy
       summary.add({
         'currentIndex': i, // zestaw pytan
         'currentTextQuestion': questions[i].text, //pytanie
@@ -33,7 +26,6 @@ class ResultScreen extends StatelessWidget {
 
     return summary;
   }
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +44,7 @@ class ResultScreen extends StatelessWidget {
             ),
             const SizedBox(height: 45),
             const Text(
-              'tu hedzie lista',
+              'ddd',
               style: TextStyle(fontSize: 15, color: Colors.white),
               textAlign: TextAlign.center,
             ),
@@ -67,13 +59,7 @@ class ResultScreen extends StatelessWidget {
                 style: TextStyle(
                     color: Color.fromARGB(255, 255, 254, 254), fontSize: 15),
               ),
-              onPressed: () {},
-
-              /*      
-              setState(() {
-              selectedAnswer = [];       //nie ma listy
-              activeScreen = const ResultScreen(); //nie ma active screen
-        });*/
+              onPressed: () {}, //back to startScreen
             ),
           ],
         ),

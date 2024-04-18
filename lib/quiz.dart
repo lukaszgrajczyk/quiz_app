@@ -1,8 +1,8 @@
+//Zarzadza przejsciami miedzy ekranami
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions_data.dart';
 import 'package:quiz_app/result_screen.dart';
-// import 'package:quiz_app/result_screen.dart';
-
 import 'package:quiz_app/start_screen.dart';
 import 'package:quiz_app/questions_screen.dart';
 
@@ -20,18 +20,18 @@ class _QuizState extends State<Quiz> {
 
   var activeScreen = 'start-screen';
 
-  void switchScreen() {
+  void changeScreen() {
+    //! onTap: changeScreen w StartScreen(changeScreen)
     setState(() {
       activeScreen = 'questions-screen';
     });
   }
 
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer); //dodaj zaznaczoną odpowiedz do listy
+    selectedAnswers.add(answer); //? dodaj wybrana odpowiedz
 
     if (selectedAnswers.length == questions.length) {
-      //ilosc zaznaczonych odpowiedzi == ilosci pytan
-      //selectedAnswers = [] - ustawione na nowa czysta liste gdy wyczerpalismy juz wszystkie odpowiedzi
+      //pusta lista z wybranymi odp= rowna ilosci
       setState(() {
         selectedAnswers = [];
         activeScreen = 'result-screen';
@@ -41,18 +41,19 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(context) {
-    Widget screenWidget = StartScreen(switchScreen);
+    Widget screenWidget = StartScreen(changeScreen);
 
+//! LISTA pytań
     if (activeScreen == 'questions-screen') {
       screenWidget = QuestionsScreen(
         onSelectedAnswer: chooseAnswer,
       );
     }
-//
+//! LISTA z odpowiedziami
     if (activeScreen == 'result-screen') {
       screenWidget = ResultScreen(
         chosenAnswer:
-            selectedAnswers, //wybrane odpowiedzi przekazane do ResultScreen
+            selectedAnswers, //przekazanie wybranych odpowiedzi do resultScr
       );
     }
 
@@ -69,7 +70,7 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: screenWidget,
+          child: screenWidget, //result or question
         ),
       ),
     );
