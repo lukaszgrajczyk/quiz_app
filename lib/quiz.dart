@@ -1,10 +1,9 @@
-//Zarzadza przejsciami miedzy ekranami
-
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions_data.dart';
+
+import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/result_screen.dart';
 import 'package:quiz_app/start_screen.dart';
-import 'package:quiz_app/questions_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -16,44 +15,46 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<String> selectedAnswers = []; // pusta lista
-
+  List<String> selectedAnswers = [];
   var activeScreen = 'start-screen';
 
-  void changeScreen() {
-    //! onTap: changeScreen w StartScreen(changeScreen)
+  void switchScreen() {
     setState(() {
       activeScreen = 'questions-screen';
     });
   }
 
   void chooseAnswer(String answer) {
-    selectedAnswers.add(answer); //? dodaj wybrana odpowiedz
+    selectedAnswers.add(answer);
 
     if (selectedAnswers.length == questions.length) {
-      //pusta lista z wybranymi odp= rowna ilosci
       setState(() {
-        selectedAnswers = [];
-        activeScreen = 'result-screen';
+        activeScreen = 'results-screen';
       });
     }
   }
 
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'questions-screen';
+    });
+  }
+
   @override
   Widget build(context) {
-    Widget screenWidget = StartScreen(changeScreen);
+    Widget screenWidget = StartScreen(switchScreen);
 
-//! LISTA pytań
     if (activeScreen == 'questions-screen') {
       screenWidget = QuestionsScreen(
         onSelectedAnswer: chooseAnswer,
       );
     }
-//! LISTA z odpowiedziami
-    if (activeScreen == 'result-screen') {
-      screenWidget = ResultScreen(
-        chosenAnswer:
-            selectedAnswers, //przekazanie wybranych odpowiedzi do resultScr
+
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswers,
+        onRestart: restartQuiz,
       );
     }
 
@@ -63,14 +64,14 @@ class _QuizState extends State<Quiz> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 164, 160, 168),
-                Color.fromARGB(255, 39, 30, 121),
+                Color.fromARGB(255, 78, 13, 151),
+                Color.fromARGB(255, 107, 15, 168),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: screenWidget, //result or question
+          child: screenWidget,
         ),
       ),
     );

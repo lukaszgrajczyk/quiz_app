@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/data/questions_data.dart';
-// import 'package:quiz_app/models/questions_model.dart';
 
-class ResultScreen extends StatelessWidget {
-  const ResultScreen({
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app/data/questions_data.dart';
+import 'package:quiz_app/question_summary.dart';
+
+class ResultsScreen extends StatelessWidget {
+  const ResultsScreen({
     super.key,
-    required this.chosenAnswer,
+    required this.chosenAnswers,
+    required this.onRestart,
   });
 
-  final List<String> chosenAnswer;
-
-//CHOSENANSWER -> QUESTIONS [0-6]
+  final void Function() onRestart;
+  final List<String> chosenAnswers;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
 
-    for (var i = 0; i < chosenAnswer.length; i++) {
-      summary.add({
-        'currentIndex': i, // zestaw pytan
-        'currentTextQuestion': questions[i].text, //pytanie
-        'correctAnswer': questions[i].answers[0], //odpowiedz
-        'chosenAnswer': chosenAnswer[i],
-      });
+    for (var i = 0; i < chosenAnswers.length; i++) {
+      summary.add(
+        {
+          'question_index': i,
+          'question': questions[i].text,
+          'correct_answer': questions[i].answers[0],
+          'user_answer': chosenAnswers[i]
+        },
+      );
     }
 
     return summary;
@@ -29,38 +33,43 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestions = questions.length;
+    final numCorrectQuestions = summaryData.where((data) {
+      return data['user_answer'] == data['correct_answer'];
+    }).length;
+
     return SizedBox(
-      height: double.infinity,
+      width: double.infinity,
       child: Container(
-        padding: const EdgeInsets.all(30),
+        margin: const EdgeInsets.all(40),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'You answered X correct and Y uncorrect',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            Text(
+              'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
+              style: GoogleFonts.lato(
+                color: const Color.fromARGB(255, 230, 200, 253),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 45),
-            const Text(
-              'ddd',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-              textAlign: TextAlign.center,
+            const SizedBox(
+              height: 30,
             ),
-            const SizedBox(height: 45),
+            QuestionsSummary(summaryData),
+            const SizedBox(
+              height: 30,
+            ),
             TextButton.icon(
-              icon: const Icon(
-                Icons.restart_alt_sharp,
-                color: Color.fromARGB(255, 243, 242, 240),
+              onPressed: onRestart,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
               ),
-              label: const Text(
-                'Restart Quiz',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 255, 254, 254), fontSize: 15),
-              ),
-              onPressed: () {}, //back to startScreen
-            ),
+              icon: const Icon(Icons.refresh),
+              label: const Text('Restart Quiz!'),
+            )
           ],
         ),
       ),
